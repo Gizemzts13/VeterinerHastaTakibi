@@ -1,0 +1,86 @@
+﻿@model PaginatedList<VeterinaryPatientFollow.Models.Patient>
+
+@{
+    ViewData["Title"] = "Hasta Kaydı";
+}
+<h4>Hasta Ekle</h4>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Hasta Adına Göre Ara: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Ara" class="fas fa-search" /> |
+            <a asp-action="Index"><i class="fas fa-clipboard-list">Listeye Dön</i></a>
+        </p>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Hasta Adı</a>
+            </th>
+            <th>
+                Hasta Fotoğrafı
+            </th>
+            <th>
+                Sahip Bilgisi
+            </th>
+            <th>
+                Cinsi
+            </th>
+            <th>
+                Tanı
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square">Yeni Hasta</i></a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img src="\img\@item.ImageURL" style="max-height: 50px;">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diagnosis)
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@item.PatientID"><i class="far fa-edit">Düzenle</i></a> |
+                    <a class="btn btn-outline-secondary btn-sm" asp-action="Details" asp-route-id="@item.PatientID"><i class="far fa-file-alt">Detay</i></a> |
+                    <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.PatientID" onclick="return confirm('Silmek İstediğinize Emin Misiniz ?')"><i class="fas fa-trash-alt">Sil</i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+  class="fas fa-chevron-circle-left @prevDisabled"> 
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+  class="fas fa-chevron-circle-right @nextDisabled">
+</a>

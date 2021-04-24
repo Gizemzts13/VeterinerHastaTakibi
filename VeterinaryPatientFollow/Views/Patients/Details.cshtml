@@ -1,0 +1,46 @@
+﻿@model VeterinaryPatientFollow.Models.Patient
+
+@{
+    ViewData["Title"] = "Hasta Detayları";
+}
+
+
+<div>
+    <h4>Hasta Detayları</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Genus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Diagnosis)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Diagnosis)
+        </dd>
+    </dl>
+</div>
+<div class="col-6">
+    <h5 class="text-danger">Hasta Fotoğrafı</h5>
+    <hr />
+    <img src="\img\@Model.ImageURL" style="max-height: 200px;">
+</div>
+<div>
+    <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@Model.PatientID"><i class="far fa-edit">Düzenle</i></a> |
+    <a class="btn btn-outline-primary btn-sm" asp-action="Index" asp-route-id="@Model.PatientID"><i class="fas fa-undo">Geri Dön</i></a>
+</div>
